@@ -1,0 +1,1 @@
+insert into t_article values
