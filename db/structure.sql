@@ -33,4 +33,4 @@ create table t_author (
     aut_firstname varchar(50)
     
     
-);
+)) engine=innodb character set utf8 collate utf8_unicode_ci;
