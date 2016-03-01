@@ -10,10 +10,18 @@ class CommentDAO extends DAO
      * @var \DeadPoolCave\DAO\ArticleDAO
      */
     private $articleDAO;
+    private $userDAO;
 
     public function setArticleDAO(ArticleDAO $articleDAO) {
         $this->articleDAO = $articleDAO;
     }
+     public function setUserDAO(UserDAO $userDAO) {
+
+        $this->userDAO = $userDAO;
+
+    }
+
+
 
     /**
      * Return a list of all comments for an article, sorted by date (most recent last).
@@ -61,7 +69,17 @@ class CommentDAO extends DAO
             $article = $this->articleDAO->find($articleId);
             $comment->setArticle($article);
         }
+         if (array_key_exists('usr_id', $row)) {
+
+            // Find and set the associated author
+
+            $userId = $row['usr_id'];
+
+            $user = $this->userDAO->find($userId);
+
+            $comment->setAuthor($user);
         
         return $comment;
     }
+}
 }
