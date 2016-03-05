@@ -29,7 +29,7 @@ class UserDAO extends DAO implements UserProviderInterface
 
      *
 
-     * @return \MicroCMS\Domain\User|throws an exception if no matching user is found
+     * @return \DeadPoolCave\Domain\User|throws an exception if no matching user is found
 
      */
 
@@ -110,7 +110,7 @@ class UserDAO extends DAO implements UserProviderInterface
 
     {
 
-        return 'MicroCMS\Domain\User' === $class;
+        return 'DeadPoolCave\Domain\User' === $class;
 
     }
 
@@ -123,7 +123,7 @@ class UserDAO extends DAO implements UserProviderInterface
 
      * @param array $row The DB row containing User data.
 
-     * @return \MicroCMS\Domain\User
+     * @return \DeadPoolCave\Domain\User
 
      */
 

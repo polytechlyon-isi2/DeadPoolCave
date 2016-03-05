@@ -1,6 +1,6 @@
 <?php
 
-namespace MicroCMS\Form\Type;
+namespace DeadPoolCave\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

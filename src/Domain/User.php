@@ -6,14 +6,14 @@ namespace DeadPoolCave\Domain;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
-
 {
     /**
      * User id.
+     *
      * @var integer
      */
     private $id;
-    
+
     /**
      * User name.
      *
@@ -43,11 +43,9 @@ class User implements UserInterface
      */
     private $role;
 
-
     public function getId() {
         return $this->id;
     }
-
 
     public function setId($id) {
         $this->id = $id;
@@ -60,20 +58,16 @@ class User implements UserInterface
         return $this->username;
     }
 
-
     public function setUsername($username) {
         $this->username = $username;
     }
 
-
     /**
      * @inheritDoc
      */
-
     public function getPassword() {
         return $this->password;
     }
-
 
     public function setPassword($password) {
         $this->password = $password;
@@ -101,7 +95,6 @@ class User implements UserInterface
         $this->role = $role;
     }
 
-
     /**
      * @inheritDoc
      */
@@ -116,5 +109,4 @@ class User implements UserInterface
     public function eraseCredentials() {
         // Nothing to do here
     }
-
 }

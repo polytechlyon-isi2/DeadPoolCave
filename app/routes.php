@@ -1,8 +1,8 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use MicroCMS\Domain\Comment;
-use MicroCMS\Form\Type\CommentType;
+use DeadPoolCave\Domain\Comment;
+use DeadPoolCave\Form\Type\CommentType;
 
 // Home page
 $app->get('/', function () use ($app) {
