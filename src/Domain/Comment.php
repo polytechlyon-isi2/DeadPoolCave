@@ -12,15 +12,10 @@ class Comment
     private $id;
 
     /**
-
      * Comment author.
-
      *
-
      * @var \MicroCMS\Domain\User
-
      */
-
     private $author;
 
     /**
@@ -50,9 +45,7 @@ class Comment
     }
 
     public function setAuthor(User $author) {
-
         $this->author = $author;
-
     }
 
     public function getContent() {

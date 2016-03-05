@@ -1,3 +1,5 @@
+drop database if exists deadpoolcave;
+
 create database if not exists deadpoolcave character set utf8 collate utf8_unicode_ci;
 
 use deadpoolcave;
