@@ -10,3 +10,6 @@ $app['db.options'] = array(
     'user'     => 'cave_admin',
     'password' => 'secret',
 );
+
+// define log level
+$app['monolog.level'] = 'WARNING';
