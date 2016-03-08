@@ -30,6 +30,9 @@ $app->get('/admin/comment/{id}/delete', "DeadPoolCave\Controller\AdminController
 // Add a user
 $app->match('/admin/user/add', "DeadPoolCave\Controller\AdminController::addUserAction")->bind('admin_user_add');
 
+// User sign up
+$app->match('/signup', "DeadPoolCave\Controller\HomeController::userSignUpAction")->bind('user_signup');
+
 // Edit an existing user
 $app->match('/admin/user/{id}/edit', "DeadPoolCave\Controller\AdminController::editUserAction")->bind('admin_user_edit');
 
