@@ -63,12 +63,14 @@ class ArticleDAO extends DAO
      * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching genre is found
      */
     public function findByGenre($genre) {
-        $sql = 'select * from t_article where art_genre=?';
-        $row = $this->getDb()->fetchAssoc($sql, array($genre));
-        if ($row)
-            return $this->buildDomainObject($row);
-        else
-            return 1;
+        $sql = "select * from t_article where art_genre = ? order by art_id desc";
+        $result = $this->getDb()->fetchAll($sql, array($genre));
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
     }
 
     /**
