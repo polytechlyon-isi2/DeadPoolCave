@@ -36,4 +36,5 @@ class GenreDAO extends DAO
         $genre->setName($row['art_genre']);
         return $genre;
     }
+
 }

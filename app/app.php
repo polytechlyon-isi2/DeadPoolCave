@@ -85,7 +85,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
         default:
             $message = "Something went wrong.";
     }
-    return $app['twig']->render('error.html.twig', array('message' => $message));
+    return $app['twig']->render('error.html.twig', array('message' => $message, 'genre'=>$app['dao.genre']->findAll()));
 });
 
 // Register JSON data decoder for JSON requests

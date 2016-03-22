@@ -37,7 +37,7 @@ class ArticleDAO extends DAO
         $article->setContent($row['art_content']);
         return $article;
     }
-    
+
     /**
      * Returns an article matching the supplied id.
      *
@@ -54,7 +54,23 @@ class ArticleDAO extends DAO
         else
             throw new \Exception("No article matching id " . $id);
     }
-    
+
+    /**
+     * Returns an list of article matching the supplied genre.
+     *
+     * @param String $genre
+     *
+     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching genre is found
+     */
+    public function findByGenre($genre) {
+        $sql = 'select * from t_article where art_genre=?';
+        $row = $this->getDb()->fetchAssoc($sql, array($genre));
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            return 1;
+    }
+
     /**
      * Saves an article into the database.
      *
@@ -87,5 +103,5 @@ class ArticleDAO extends DAO
         // Delete the article
         $this->getDb()->delete('t_article', array('art_id' => $id));
     }
-    
+
 }

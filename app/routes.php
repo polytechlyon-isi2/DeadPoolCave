@@ -3,6 +3,9 @@
 // Home page
 $app->get('/', "DeadPoolCave\Controller\HomeController::indexAction")->bind('home');
 
+// Genre
+$app->get('/genre/{genre}', "DeadPoolCave\Controller\HomeController::genreAction")->bind('genre');
+
 // Detailed info about an article
 $app->match('/article/{id}', "DeadPoolCave\Controller\HomeController::articleAction")->bind('article');
 

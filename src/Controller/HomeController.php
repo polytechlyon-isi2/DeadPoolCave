@@ -24,6 +24,17 @@ class HomeController {
     }
 
     /**
+     * Home page controller.
+     *
+     * @param Application $app Silex application
+     */
+    public function genreAction($genre, Application $app) {
+        $articles = $app['dao.article']->findByGenre($genre);
+        $genres = $app['dao.genre']->findAll();
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
+    }
+
+    /**
      * Article details controller.
      *
      * @param integer $id Article id
