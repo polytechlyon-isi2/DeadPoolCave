@@ -19,7 +19,8 @@ class HomeController {
      */
     public function indexAction(Application $app) {
         $articles = $app['dao.article']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles));
+        $genres = $app['dao.genre']->findAll();
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
     }
 
     /**
@@ -31,6 +32,7 @@ class HomeController {
      */
     public function articleAction($id, Request $request, Application $app) {
         $article = $app['dao.article']->find($id);
+        $genres = $app['dao.genre']->findAll();
         $commentFormView = null;
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             // A user is fully authenticated : he can add comments
@@ -48,7 +50,8 @@ class HomeController {
         }
         $comments = $app['dao.comment']->findAllByArticle($id);
         return $app['twig']->render('article.html.twig', array(
-            'article' => $article, 
+            'article' => $article,
+            'genres' => $genres,
             'comments' => $comments,
             'commentForm' => $commentFormView));
     }
@@ -60,12 +63,14 @@ class HomeController {
      * @param Application $app Silex application
      */
     public function loginAction(Request $request, Application $app) {
+      $genres = $app['dao.genre']->findAll();
         return $app['twig']->render('login.html.twig', array(
+          'genres' => $genres,
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
             ));
     }
-    
+
     /**
      * user sign up controller.
      *
@@ -73,6 +78,7 @@ class HomeController {
      * @param Application $app Silex application
      */
     public function userSignUpAction(Request $request, Application $app) {
+      $genres = $app['dao.genre']->findAll();
         $user = new User();
         $userForm = $app['form.factory']->create(new SignUpType(), $user);
         $userForm->handleRequest($request);
@@ -88,9 +94,11 @@ class HomeController {
             $user->setPassword($password);
             $user->setRole('User');
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+
+            $app['session']->getFlashBag()->add('success', 'print '.'<img class="img-responsive pull-right" src="../web/pictures/deadpoolove.jpg" alt="love"/>'.';The user was successfully created.');
         }
         return $app['twig']->render('user_signup.html.twig', array(
+          'genres' => $genres,
             'title' => 'New user',
             'userForm' => $userForm->createView()));
     }

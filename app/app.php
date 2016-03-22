@@ -57,6 +57,9 @@ if (isset($app['debug']) && $app['debug']) {
 }
 
 // Register services
+$app['dao.genre'] = $app->share(function ($app) {
+    return new DeadPoolCave\DAO\GenreDAO($app['db']);
+});
 $app['dao.article'] = $app->share(function ($app) {
     return new DeadPoolCave\DAO\ArticleDAO($app['db']);
 });

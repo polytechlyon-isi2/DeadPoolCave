@@ -1,3 +1,8 @@
+insert into t_genre values
+('Super-Hero'),
+('Romance'),
+('Science-Fiction');
+
 insert into t_article values
 (1, 'Deadpool (2012-2015) No. 15','THE GOOD, THE BAD & THE UGLY PART 1','Deadpool''s past in the Weapon X program comes back to haunt him. What else to do but call in help from Wolverine & Captain America?','Marvel','Super-Hero','Deadpool (2012-2015)',10);
 

@@ -5,6 +5,7 @@ namespace DeadPoolCave\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use DeadPoolCave\Domain\Article;
+use DeadPoolCave\Domain\Genre;
 use DeadPoolCave\Domain\User;
 use DeadPoolCave\Form\Type\ArticleType;
 use DeadPoolCave\Form\Type\CommentType;
@@ -18,11 +19,13 @@ class AdminController {
      * @param Application $app Silex application
      */
     public function indexAction(Application $app) {
+      $genres = $app['dao.genre']->findAll();
         $articles = $app['dao.article']->findAll();
         $comments = $app['dao.comment']->findAll();
         $users = $app['dao.user']->findAll();
         return $app['twig']->render('admin.html.twig', array(
             'articles' => $articles,
+            'genres' => $genres,
             'comments' => $comments,
             'users' => $users));
     }
@@ -34,6 +37,7 @@ class AdminController {
      * @param Application $app Silex application
      */
     public function addArticleAction(Request $request, Application $app) {
+      $genres = $app['dao.genre']->findAll();
         $article = new Article();
         $articleForm = $app['form.factory']->create(new ArticleType(), $article);
         $articleForm->handleRequest($request);
@@ -42,6 +46,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'The article was successfully created.');
         }
         return $app['twig']->render('article_form.html.twig', array(
+            'genres' => $genres,
             'title' => 'New article',
             'articleForm' => $articleForm->createView()));
     }
@@ -55,6 +60,7 @@ class AdminController {
      */
     public function editArticleAction($id, Request $request, Application $app) {
         $article = $app['dao.article']->find($id);
+        $genres = $app['dao.genre']->findAll();
         $articleForm = $app['form.factory']->create(new ArticleType(), $article);
         $articleForm->handleRequest($request);
         if ($articleForm->isSubmitted() && $articleForm->isValid()) {
@@ -62,6 +68,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'The article was succesfully updated.');
         }
         return $app['twig']->render('article_form.html.twig', array(
+            'genres' => $genres,
             'title' => 'Edit article',
             'articleForm' => $articleForm->createView()));
     }
@@ -91,6 +98,7 @@ class AdminController {
      */
     public function editCommentAction($id, Request $request, Application $app) {
         $comment = $app['dao.comment']->find($id);
+        $genres = $app['dao.genre']->findAll();
         $commentForm = $app['form.factory']->create(new CommentType(), $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -98,6 +106,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('success', 'The comment was succesfully updated.');
         }
         return $app['twig']->render('comment_form.html.twig', array(
+            'genres' => $genres,
             'title' => 'Edit comment',
             'commentForm' => $commentForm->createView()));
     }
@@ -123,6 +132,7 @@ class AdminController {
      */
     public function addUserAction(Request $request, Application $app) {
         $user = new User();
+        $genres = $app['dao.genre']->findAll();
         $userForm = $app['form.factory']->create(new UserType(), $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -134,11 +144,12 @@ class AdminController {
             $encoder = $app['security.encoder.digest'];
             // compute the encoded password
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
-            $user->setPassword($password); 
+            $user->setPassword($password);
             $app['dao.user']->save($user);
             $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
         }
         return $app['twig']->render('user_form.html.twig', array(
+            'genres' => $genres,
             'title' => 'New user',
             'userForm' => $userForm->createView()));
     }
@@ -152,6 +163,7 @@ class AdminController {
      */
     public function editUserAction($id, Request $request, Application $app) {
         $user = $app['dao.user']->find($id);
+        $genres = $app['dao.genre']->findAll();
         $userForm = $app['form.factory']->create(new UserType(), $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -160,11 +172,12 @@ class AdminController {
             $encoder = $app['security.encoder_factory']->getEncoder($user);
             // compute the encoded password
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
-            $user->setPassword($password); 
+            $user->setPassword($password);
             $app['dao.user']->save($user);
             $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
         }
         return $app['twig']->render('user_form.html.twig', array(
+            'genres' => $genres,
             'title' => 'Edit user',
             'userForm' => $userForm->createView()));
     }

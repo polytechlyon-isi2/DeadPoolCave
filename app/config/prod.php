@@ -11,5 +11,6 @@ $app['db.options'] = array(
     'password' => 'secret',
 );
 
+
 // define log level
 $app['monolog.level'] = 'WARNING';
