@@ -24,13 +24,25 @@ class HomeController {
     }
 
     /**
-     * Home page controller.
      *
+     * @param $genre String
      * @param Application $app Silex application
      */
     public function genreAction($genre, Application $app) {
         $articles = $app['dao.article']->findByGenre($genre);
         $genres = $app['dao.genre']->findAll();
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
+    }
+
+    /**
+     *
+     * @param $begin String
+     * @param $end String
+     * @param Application $app Silex application
+     */
+    public function nameAction($begin,$end, Application $app) {
+        $genres = $app['dao.genre']->findAll();
+        $articles = $app['dao.article']->findByName($begin,$end);
         return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
     }
 

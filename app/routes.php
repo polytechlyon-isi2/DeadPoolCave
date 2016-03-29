@@ -6,6 +6,9 @@ $app->get('/', "DeadPoolCave\Controller\HomeController::indexAction")->bind('hom
 // Genre
 $app->get('/genre/{genre}', "DeadPoolCave\Controller\HomeController::genreAction")->bind('genre');
 
+// Name
+$app->get('/name/{begin}/{end}', "DeadPoolCave\Controller\HomeController::nameAction")->bind('name');
+
 // Detailed info about an article
 $app->match('/article/{id}', "DeadPoolCave\Controller\HomeController::articleAction")->bind('article');
 
