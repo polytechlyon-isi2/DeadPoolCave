@@ -56,3 +56,8 @@ $app->post('/api/article', "DeadPoolCave\Controller\ApiController::addArticleAct
 
 // API : remove an article
 $app->delete('/api/article/{id}', "DeadPoolCave\Controller\ApiController::deleteArticleAction")->bind('api_article_delete');
+
+// Profil
+$app->match('/profil/{id}',  "DeadPoolCave\Controller\HomeController::profilAction")->bind('profil');
+$app->match('/profil/{id}/edit',  "DeadPoolCave\Controller\HomeController::profilEdit")->bind('profilEdit');
+
