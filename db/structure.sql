@@ -1,4 +1,5 @@
 drop table if exists t_genre;
+drop table if exists t_editor;
 drop table if exists t_article;
 drop table if exists t_comment;
 drop table if exists t_author;
@@ -7,6 +8,11 @@ drop table if exists t_user;
 
 create table t_genre (
     art_genre varchar(50) primary key
+) engine=innodb character set utf8 collate utf8_unicode_ci;
+
+
+create table t_editor (
+    editor_name varchar(20) not null primary key
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table t_article (
@@ -18,8 +24,9 @@ create table t_article (
     art_genre varchar(20),
     art_series varchar(50),
     art_price integer ,
-    
-    constraint fk_art_gen foreign key(art_genre) references t_genre(art_genre)
+
+    constraint fk_art_gen foreign key(art_genre) references t_genre(art_genre),
+    constraint fk_art_editor foreign key(art_editor) references t_editor(editor_name)
 );
 create table t_user (
 
@@ -31,7 +38,7 @@ create table t_user (
 
     usr_salt varchar(23) not null,
 
-    usr_role varchar(50) not null 
+    usr_role varchar(50) not null
 
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
@@ -58,7 +65,3 @@ create table t_author (
     aut_name varchar(50) not null,
     aut_firstname varchar(50)
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
-
-
-
-

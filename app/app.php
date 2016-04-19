@@ -60,6 +60,9 @@ if (isset($app['debug']) && $app['debug']) {
 $app['dao.genre'] = $app->share(function ($app) {
     return new DeadPoolCave\DAO\GenreDAO($app['db']);
 });
+$app['dao.editor'] = $app->share(function ($app) {
+    return new DeadPoolCave\DAO\EditorDAO($app['db']);
+});
 $app['dao.article'] = $app->share(function ($app) {
     return new DeadPoolCave\DAO\ArticleDAO($app['db']);
 });

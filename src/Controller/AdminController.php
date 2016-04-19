@@ -20,12 +20,14 @@ class AdminController {
      */
     public function indexAction(Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $editors = $app['dao.editor']->findAll();
         $articles = $app['dao.article']->findAll();
         $comments = $app['dao.comment']->findAll();
         $users = $app['dao.user']->findAll();
         return $app['twig']->render('admin.html.twig', array(
             'articles' => $articles,
             'genres' => $genres,
+            'editors' => $editors,
             'comments' => $comments,
             'users' => $users));
     }
@@ -38,6 +40,7 @@ class AdminController {
      */
     public function addArticleAction(Request $request, Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $editors = $app['dao.editor']->findAll();
         $article = new Article();
         $articleForm = $app['form.factory']->create(new ArticleType(), $article);
         $articleForm->handleRequest($request);
@@ -47,6 +50,7 @@ class AdminController {
         }
         return $app['twig']->render('article_form.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'title' => 'New article',
             'articleForm' => $articleForm->createView()));
     }
@@ -61,6 +65,7 @@ class AdminController {
     public function editArticleAction($id, Request $request, Application $app) {
         $article = $app['dao.article']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $articleForm = $app['form.factory']->create(new ArticleType(), $article);
         $articleForm->handleRequest($request);
         if ($articleForm->isSubmitted() && $articleForm->isValid()) {
@@ -69,6 +74,7 @@ class AdminController {
         }
         return $app['twig']->render('article_form.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'title' => 'Edit article',
             'articleForm' => $articleForm->createView()));
     }
@@ -99,6 +105,7 @@ class AdminController {
     public function editCommentAction($id, Request $request, Application $app) {
         $comment = $app['dao.comment']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $commentForm = $app['form.factory']->create(new CommentType(), $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -107,6 +114,7 @@ class AdminController {
         }
         return $app['twig']->render('comment_form.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'title' => 'Edit comment',
             'commentForm' => $commentForm->createView()));
     }
@@ -133,6 +141,7 @@ class AdminController {
     public function addUserAction(Request $request, Application $app) {
         $user = new User();
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $userForm = $app['form.factory']->create(new UserType(), $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -150,6 +159,7 @@ class AdminController {
         }
         return $app['twig']->render('user_form.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'title' => 'New user',
             'userForm' => $userForm->createView()));
     }
@@ -164,6 +174,7 @@ class AdminController {
     public function editUserAction($id, Request $request, Application $app) {
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $userForm = $app['form.factory']->create(new UserType(), $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -178,6 +189,7 @@ class AdminController {
         }
         return $app['twig']->render('user_form.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'title' => 'Edit user',
             'userForm' => $userForm->createView()));
     }

@@ -78,7 +78,7 @@ class ArticleDAO extends DAO
      *
      * @param String $genre
      *
-     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching genre is found
+     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching name is found
      */
     public function findByName($begin,$end) {
         $sql = "select * from t_article where art_ref > ? AND art_ref < ?";
@@ -90,6 +90,25 @@ class ArticleDAO extends DAO
         }
         return $articles;
     }
+
+    /**
+     * Returns an list of article matching the supplied genre.
+     *
+     * @param String $genre
+     *
+     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching name is found
+     */
+    public function findByEditor($editor) {
+        $sql = "select * from t_article where art_editor = ?";
+        $result = $this->getDb()->fetchAll($sql, array($editor));
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
+    }
+
 
     /**
      * Saves an article into the database.

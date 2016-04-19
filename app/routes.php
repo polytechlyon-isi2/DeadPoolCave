@@ -9,6 +9,9 @@ $app->get('/genre/{genre}', "DeadPoolCave\Controller\HomeController::genreAction
 // Name
 $app->get('/name/{begin}/{end}', "DeadPoolCave\Controller\HomeController::nameAction")->bind('name');
 
+// editor
+$app->get('/editor/{editor}', "DeadPoolCave\Controller\HomeController::editorAction")->bind('editor');
+
 // Detailed info about an article
 $app->match('/article/{id}', "DeadPoolCave\Controller\HomeController::articleAction")->bind('article');
 
@@ -60,4 +63,3 @@ $app->delete('/api/article/{id}', "DeadPoolCave\Controller\ApiController::delete
 // Profil
 $app->match('/profil/{id}',  "DeadPoolCave\Controller\HomeController::profilAction")->bind('profil');
 $app->match('/profil/{id}/edit',  "DeadPoolCave\Controller\HomeController::profilEdit")->bind('profilEdit');
-
