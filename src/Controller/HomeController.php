@@ -8,8 +8,9 @@ use DeadPoolCave\Domain\Comment;
 use DeadPoolCave\Form\Type\CommentType;
 use DeadPoolCave\Domain\User;
 use DeadPoolCave\Form\Type\UserType;
-use DeadPoolCave\Form\Type\SignUpType;
 use DeadPoolCave\Form\Type\ProfilType;
+use DeadPoolCave\Form\Type\SignUpType;
+
 
 
 class HomeController {
@@ -151,5 +152,37 @@ class HomeController {
     }
 
 
-    
+    public function profilAction($id, Request $request, Application $app){
+        $user = $app['dao.user']->find($id);
+        return $app['twig']->render('profil.html.twig', array(
+            'user'=>$user,));
+    }
+
+    public function profilEdit($id, Request $request, Application $app) {
+        $user = $app['dao.user']->find($id);
+        $genres = $app['dao.genre']->findAll();
+
+        $profilForm = $app['form.factory']->create(new ProfilType(), $user);
+        $profilForm->handleRequest($request);
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
+            $plainPassword = $user->getPassword();
+            // find the encoder for the user
+            $encoder = $app['security.encoder_factory']->getEncoder($user);
+            // compute the encoded password
+            $password = $encoder->encodePassword($plainPassword, $user->getSalt());
+            $user->setPassword($password);
+            $app['dao.user']->save($user);
+            $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
+        }
+
+        $editors = $app['dao.editor']->findAll();
+        
+
+            
+        return $app['twig']->render('profil_form.html.twig', array(
+            'genres' => $genres,
+            'editors' => $editors,
+            'title' => 'Edit Profil',
+            'profilForm' => $profilForm->createView()));
+    }
 }
