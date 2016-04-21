@@ -22,7 +22,8 @@ class HomeController {
     public function indexAction(Application $app) {
         $articles = $app['dao.article']->findAll();
         $genres = $app['dao.genre']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
+        $editors = $app['dao.editor']->findAll();
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
     /**
@@ -33,7 +34,8 @@ class HomeController {
     public function genreAction($genre, Application $app) {
         $articles = $app['dao.article']->findByGenre($genre);
         $genres = $app['dao.genre']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
+        $editors = $app['dao.editor']->findAll();
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
     /**
@@ -44,8 +46,22 @@ class HomeController {
      */
     public function nameAction($begin,$end, Application $app) {
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $articles = $app['dao.article']->findByName($begin,$end);
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres));
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+    }
+
+    /**
+     *
+     * @param $begin String
+     * @param $end String
+     * @param Application $app Silex application
+     */
+    public function editorAction($editor, Application $app) {
+        $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
+        $articles = $app['dao.article']->findByEditor($editor);
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
     /**
@@ -58,6 +74,7 @@ class HomeController {
     public function articleAction($id, Request $request, Application $app) {
         $article = $app['dao.article']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
         $commentFormView = null;
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             // A user is fully authenticated : he can add comments
@@ -77,6 +94,7 @@ class HomeController {
         return $app['twig']->render('article.html.twig', array(
             'article' => $article,
             'genres' => $genres,
+            'editors' => $editors,
             'comments' => $comments,
             'commentForm' => $commentFormView));
     }
@@ -89,8 +107,10 @@ class HomeController {
      */
     public function loginAction(Request $request, Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $editors = $app['dao.editor']->findAll();
         return $app['twig']->render('login.html.twig', array(
           'genres' => $genres,
+          'editors' => $editors,
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
             ));
@@ -104,6 +124,7 @@ class HomeController {
      */
     public function userSignUpAction(Request $request, Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $editors = $app['dao.editor']->findAll();
         $user = new User();
         $userForm = $app['form.factory']->create(new SignUpType(), $user);
         $userForm->handleRequest($request);
@@ -124,35 +145,11 @@ class HomeController {
         }
         return $app['twig']->render('user_signup.html.twig', array(
           'genres' => $genres,
+           'editors' => $editors,
             'title' => 'New user',
             'userForm' => $userForm->createView()));
     }
+
+
     
-    
-    public function profilAction($id, Request $request, Application $app){
-        $user = $app['dao.user']->find($id);
-        return $app['twig']->render('profil.html.twig', array(
-            'user'=>$user,));
-    }
-    
-    public function profilEdit($id, Request $request, Application $app) {
-        $user = $app['dao.user']->find($id);
-        $genres = $app['dao.genre']->findAll();
-        $profilForm = $app['form.factory']->create(new ProfilType(), $user);
-        $profilForm->handleRequest($request);
-        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
-            $plainPassword = $user->getPassword();
-            // find the encoder for the user
-            $encoder = $app['security.encoder_factory']->getEncoder($user);
-            // compute the encoded password
-            $password = $encoder->encodePassword($plainPassword, $user->getSalt());
-            $user->setPassword($password);
-            $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
-        }
-        return $app['twig']->render('profil_form.html.twig', array(
-            'genres' => $genres,
-            'title' => 'Edit user',
-            'profilForm' => $profilForm->createView()));
-    }
 }

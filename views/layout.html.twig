@@ -26,7 +26,7 @@
                     DeadPoolCave</b></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                  {% if genres is defined %}
+                  {% if genres is defined and editors is defined %}
                     <ul class="nav navbar-nav navbar-left">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -34,6 +34,15 @@
                             <ul class="dropdown-menu">
                                 {% for genre in genres %}
                                     <li><a href="{{path('genre',{ 'genre': genre.name })}}">{{ genre.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-th-list"></span> Editeur <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                {% for editor in editors %}
+                                    <li><a href="{{path('editor',{ 'editor': editor.name })}}">{{ editor.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -91,7 +100,7 @@
         </nav>
         <div id="content">{% block content %}{% endblock %}</div>
         <footer class="footer">
-            <a href="https://github.com/bpesquet/OC-DeadPoolCave">DeadPoolCave</a> is a minimalistic CMS built as a showcase for modern PHP development.
+            DeadPoolCave is a minimalistic CMS built as a showcase for modern PHP development.
         </footer>
     </div>
     <!-- jQuery -->

@@ -3,10 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  {% for article in articles %}
-  <article>
-      <h2><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></h2>
-      <p>{{ article.content }}</p>
-  </article>
-  {% endfor %}
+  <div class="container">
+    <section class="row">
+      {% for article in articles %}
+        <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">
+          <article class="col-xs-12 col-sm-6 col-md-4">
+            <div class="article thumbnail">
+              <img class="img-rounded" style="max-height:15em" src="{{ app.request.basepath }}/pictures/404-deadpool.png" alt="Error deadpool"/>
+              <h2>{{ article.title }}</h2>
+            </div>
+          </article>
+        </a>
+      {% endfor %}
+    </section>
+  </div>
 {% endblock %}
