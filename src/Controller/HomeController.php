@@ -9,6 +9,8 @@ use DeadPoolCave\Form\Type\CommentType;
 use DeadPoolCave\Domain\User;
 use DeadPoolCave\Form\Type\UserType;
 use DeadPoolCave\Form\Type\SignUpType;
+use DeadPoolCave\Form\Type\ProfilType;
+
 
 class HomeController {
 
@@ -136,9 +138,9 @@ class HomeController {
     public function profilEdit($id, Request $request, Application $app) {
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
-        $userForm = $app['form.factory']->create(new UserType(), $user);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
+        $profilForm = $app['form.factory']->create(new ProfilType(), $user);
+        $profilForm->handleRequest($request);
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
             $plainPassword = $user->getPassword();
             // find the encoder for the user
             $encoder = $app['security.encoder_factory']->getEncoder($user);
@@ -148,9 +150,9 @@ class HomeController {
             $app['dao.user']->save($user);
             $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
         }
-        return $app['twig']->render('user_form.html.twig', array(
+        return $app['twig']->render('profil_form.html.twig', array(
             'genres' => $genres,
             'title' => 'Edit user',
-            'userForm' => $userForm->createView()));
+            'profilForm' => $profilForm->createView()));
     }
 }
