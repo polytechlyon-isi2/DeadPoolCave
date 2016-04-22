@@ -2,6 +2,7 @@
 
 // Home page
 $app->get('/', "DeadPoolCave\Controller\HomeController::indexAction")->bind('home');
+$app->get('/api/article/({artId},{usrId})', "DeadPoolCave\Controller\ApiController::addArticleToCart")->bind('cartAdd');
 
 // Genre
 $app->get('/genre/{genre}', "DeadPoolCave\Controller\HomeController::genreAction")->bind('genre');
@@ -63,3 +64,5 @@ $app->delete('/api/article/{id}', "DeadPoolCave\Controller\ApiController::delete
 // Profil
 $app->match('/profil/{id}',  "DeadPoolCave\Controller\HomeController::profilAction")->bind('profil');
 $app->match('/profil/{id}/edit',  "DeadPoolCave\Controller\HomeController::profilEdit")->bind('profilEdit');
+// Cart
+$app->match('/cart/{id}',  "DeadPoolCave\Controller\HomeController::cart")->bind('cart');

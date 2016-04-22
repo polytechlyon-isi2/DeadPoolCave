@@ -54,6 +54,21 @@ class ArticleDAO extends DAO
         else
             throw new \Exception("No article matching id " . $id);
     }
+    
+    public function findByCart($usrId){
+        $sql = "select * from t_article inner join t_commande on t_commande.commande_artId = t_article.art_id where t_commande.commande_userId = ?";
+            $row = $this->getDb()->fetchAssoc($sql, array($usrId));
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No article matching id " . $usrId);
+    }
+    
+    public function addToCart($artId, $usrId){
+        $sql = "insert into t_commande set commande_artId = '$artId' , commande_userId='$usrId' ";
+        $this->getDb()->sql;
+    }
 
     /**
      * Returns an list of article matching the supplied genre.

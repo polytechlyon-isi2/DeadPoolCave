@@ -185,4 +185,16 @@ class HomeController {
             'title' => 'Edit Profil',
             'profilForm' => $profilForm->createView()));
     }
+    
+    public function cart ($id, Request $request, Application $app){
+        $user = $app['dao.user']->find($id);
+        $genres = $app['dao.genre']->findAll();
+        $cart = $app['dao.article']->findByCart($id);
+        
+        return $app['twig']->render('commande.html.twig', array(
+            'genres' => $genres,
+            'cart' => $cart,
+            'title' => 'Cart',
+            ));
+    }
 }

@@ -65,3 +65,11 @@ create table t_author (
     aut_name varchar(50) not null,
     aut_firstname varchar(50)
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
+
+create table t_commande (
+    commande_id integer not null primary key auto_increment,
+    commande_userId integer not null,
+    commande_artId integer not null,
+    commande_etat boolean,
+    constraint fk_commande_usr foreign key(commande_userId) references t_user(usr_id),
+    constraint fk_commande_art foreign key(commande_artId) references t_article(art_id));
