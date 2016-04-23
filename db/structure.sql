@@ -24,6 +24,7 @@ create table t_article (
     art_genre varchar(20),
     art_series varchar(50),
     art_price integer ,
+    art_img varchar(150),
 
     constraint fk_art_gen foreign key(art_genre) references t_genre(art_genre),
     constraint fk_art_editor foreign key(art_editor) references t_editor(editor_name)

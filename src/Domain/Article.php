@@ -38,6 +38,8 @@ class Article
     * @var string
     */
     private $editor;
+    
+    private $img;
      
 
     public function getId() {
@@ -62,5 +64,13 @@ class Article
 
     public function setContent($content) {
         $this->content = $content;
+    }
+    
+    public function getImg(){
+        return $this->img;
+    }
+    
+    public function setImg($img){
+        $this->img = $img;
     }
 }
