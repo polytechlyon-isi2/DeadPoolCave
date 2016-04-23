@@ -1,12 +1,13 @@
 {% extends 'layout.html.twig' %} {% block title %}Panier{% endblock %} {% block content %}
+<h2 class="text-center">Panier</h2>
 <div class="container">
     <section class="row">
         {% for article in cart %}
         <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">
             <article class="col-xs-12 col-sm-6 col-md-4">
-                
-                    <h2>{{ article.title }}</h2>
-                
+
+                <h2>{{ article.title }}</h2>
+
             </article>
         </a>
         {% endfor %}

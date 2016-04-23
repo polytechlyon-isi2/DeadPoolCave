@@ -141,8 +141,9 @@ class HomeController {
             $user->setPassword($password);
             $user->setRole('User');
             $app['dao.user']->save($user);
+            
 
-            $app['session']->getFlashBag()->add('success', 'print '.'<img class="img-responsive pull-right" src="../web/pictures/deadpoolove.jpg" alt="love"/>'.';The user was successfully created.');
+            $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
         }
         return $app['twig']->render('user_signup.html.twig', array(
           'genres' => $genres,
