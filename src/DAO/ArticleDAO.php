@@ -57,12 +57,13 @@ class ArticleDAO extends DAO
     
     public function findByCart($usrId){
         $sql = "select * from t_article inner join t_commande on t_commande.commande_artId = t_article.art_id where t_commande.commande_userId = ?";
-            $row = $this->getDb()->fetchAssoc($sql, array($usrId));
-
-        if ($row)
-            return $this->buildDomainObject($row);
-        else
-            throw new \Exception("No article matching id " . $usrId);
+            $result = $this->getDb()->fetchAll($sql, array($usrId));
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
     }
     
     public function addToCart($artId, $usrId){
