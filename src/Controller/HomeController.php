@@ -65,6 +65,21 @@ class HomeController {
         return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
+
+    /**
+     *
+     * @param $usrId integer
+     * @param $artId integer
+     * @param Application $app Silex application
+     */
+    public function addArticleToCart($usrId, $artId, Application $app){
+        $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
+        $article = $app['dao.article']->find($artId);
+        $app['dao.article']->addToCart($artId,$usrId);
+        return $app['twig']->render('addToCart.html.twig', array('article' => $article, 'genres' => $genres, 'editors' => $editors));
+    }
+
     /**
      *
      * @param $begin String
@@ -100,7 +115,7 @@ class HomeController {
             $commentForm->handleRequest($request);
             if ($commentForm->isSubmitted() && $commentForm->isValid()) {
                 $app['dao.comment']->save($comment);
-                $app['session']->getFlashBag()->add('success', 'Your comment was succesfully added.');
+                $app['session']->getFlashBag()->add('success', 'Votre commentaire à été ajouté.');
             }
             $commentFormView = $commentForm->createView();
         }

@@ -35,7 +35,10 @@ class ArticleDAO extends DAO
         $article->setId($row['art_id']);
         $article->setTitle($row['art_title']);
         $article->setContent($row['art_content']);
+        $article->setPrice($row['art_price']);
         $article->setImg($row['art_img']);
+        $article->setSerie($row['art_series']);
+        $article->setGenre($row['art_genre']);
         return $article;
     }
 
@@ -56,6 +59,13 @@ class ArticleDAO extends DAO
             throw new \Exception("No article matching id " . $id);
     }
 
+
+    /**
+     * Returns a list of all articles in the cart.
+     *
+     * @param integer $usrId
+     *
+     */
     public function findByCart($usrId){
         $sql = "select * from t_article inner join t_commande on t_commande.commande_artId = t_article.art_id where t_commande.commande_userId = ?";
             $result = $this->getDb()->fetchAll($sql, array($usrId));
@@ -67,9 +77,25 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+
+    /**
+     * Add an article in the cart.
+     *
+     * @param integer $usrId
+     * @param integer $artId
+     *
+     */
     public function addToCart($artId, $usrId){
-        $sql = "insert into t_commande set commande_artId = '$artId' , commande_userId='$usrId' ";
-        $this->getDb()->sql;
+      $sql = "select * from t_commande where commande_userId=? and commande_artId=?";
+      $row = $this->getDb()->fetchAssoc($sql, array($usrId,$artId));
+
+      if (!$row){
+        $articleData = array(
+            'commande_userId' => $usrId,
+            'commande_artId' => $artId,
+            );
+        $this->getDb()->insert('t_commande',$articleData);
+      }
     }
 
     /**
@@ -116,7 +142,7 @@ class ArticleDAO extends DAO
      *
      */
     public function findByAuthor($begin,$end) {
-        $sql = "select * from t_article where art_id IN 
+        $sql = "select * from t_article where art_id IN
         (select art_id from t_article_author where aut_id IN
         (select aut_id from t_author where aut_name > ? AND aut_name < ?))";
         $result = $this->getDb()->fetchAll($sql, array($begin,$end));

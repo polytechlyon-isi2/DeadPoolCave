@@ -18,7 +18,6 @@ create table t_editor (
 
 create table t_article (
     art_id integer not null primary key auto_increment,
-    art_ref varchar(100),
     art_title varchar(100) not null,
     art_content varchar(2000),
     art_editor varchar(20),
@@ -67,9 +66,11 @@ create table t_article_author (
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table t_commande (
-    commande_id integer not null primary key auto_increment,
     commande_userId integer not null,
     commande_artId integer not null,
     commande_etat boolean,
     constraint fk_commande_usr foreign key(commande_userId) references t_user(usr_id),
-    constraint fk_commande_art foreign key(commande_artId) references t_article(art_id));
+    constraint fk_commande_art foreign key(commande_artId) references t_article(art_id),
+
+    primary key (commande_userId,commande_artId)
+) engine=innodb character set utf8 collate utf8_unicode_ci;

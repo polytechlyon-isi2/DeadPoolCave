@@ -1,4 +1,4 @@
-{% extends "layout.html.twig" %} {% block title %}Home{% endblock %} {% block content %}
+{% extends "layout.html.twig" %} {% block title %}Comics{% endblock %} {% block content %}
 
 <div class="container">
     <section class="row">
@@ -11,6 +11,8 @@
                 </div>
             </article>
         </a>
+        {% else %}
+          <h2 class="text-center">Aucun article correspondant</h2>
         {% endfor %}
     </section>
 </div>

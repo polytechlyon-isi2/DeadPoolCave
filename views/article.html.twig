@@ -3,33 +3,34 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-md-6">
-                <img class="img-responsive" style="max-height:30em" src="{{article.img}}" />
+                <img class="img-responsive img-rounded" style="max-height:30em" src="{{article.img}}" />
             </div>
             <div class="col-md-6">
                 <h2>{{ article.title }}</h2>
-                <p>{{ article.content }}</p>
+                <p>{{ article.content }}</p><br/>
+                <p>prix : {{ article.price }} €</p><br/>
                 {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
-                <button type="button"><span class="glyphicon glyphicon-shopping-cart"><a href="{{ path('cartAdd', { 'artId': article.id , 'usrId': app.user.id }) }} ">Add To Your Cart</a></span>
-                </button>{% endif %}
+                <a class="btn btn-lg btn-primary" href="{{ path('cartAdd', { 'artId': article.id , 'usrId': app.user.id }) }} "><span class="glyphicon glyphicon-shopping-cart"> Ajouter au panier</span>
+                </a>{% endif %}
             </div>
         </div>
     </div>
-    <h3>Comments</h3> {% for comment in comments %}
-    <strong>{{ comment.author.username }}</strong> said : {{ comment.content }}
-    <br> {% else %} No comments yet. {% endfor %}
+    <h3>Commentaires</h3> {% for comment in comments %}
+    <strong>{{ comment.author.username }}</strong> écrit : {{ comment.content }}
+    <br> {% else %} Il n'y a pour l'instant aucun commentaire client. {% endfor %}
 
-    <h3>Add a comment</h3> {% if commentForm %} {{ form_start(commentForm) }}
+    <h3>Ajouter un commentaire</h3> {% if commentForm %} {{ form_start(commentForm) }}
     <div class="form-group">
-        {{ form_errors(commentForm.content) }} {{ form_widget(commentForm.content, { 'attr': { 'rows': '4', 'class': 'form-control', 'placeholder': 'Enter your comment' }}) }}
+        {{ form_errors(commentForm.content) }} {{ form_widget(commentForm.content, { 'attr': { 'rows': '4', 'class': 'form-control', 'placeholder': 'Entrez un commentaire' }}) }}
     </div>
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Publish comment" />
+        <input type="submit" class="btn btn-primary" value="Publier un commentaire" />
     </div>
     {{ form_end(commentForm) }} {% for flashMessage in app.session.flashbag.get('success') %}
     <div class="alert alert-success">
         {{ flashMessage }}
     </div>
     {% endfor %} {% else %}
-    <a href="{{ path('login') }} ">Log in</a> to add comments. {% endif %}
+    <a href="{{ path('login') }} ">Connectez-vous</a> pour ajouter un commentaire. {% endif %}
 </p>
 {% endblock %}

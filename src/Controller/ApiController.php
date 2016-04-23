@@ -95,8 +95,6 @@ class ApiController {
             );
         return $data;
     }
-    
-    public function addArticleToCart($usrId, $artId, Application $app){
-        $app['dao.article']->addToCart($artId,$usrId);
-    }
+
+
 }

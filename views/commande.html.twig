@@ -1,16 +1,25 @@
 {% extends 'layout.html.twig' %} {% block title %}Panier{% endblock %} {% block content %}
 <h2 class="text-center">Panier</h2>
 <div class="container">
-    <section class="row">
-        {% for article in cart %}
-        <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">
-            <article class="col-xs-12 col-sm-6 col-md-4">
-
-                <h2>{{ article.title }}</h2>
-
-            </article>
-        </a>
-        {% endfor %}
-    </section>
+  <div class="table-responsive">
+      <table class="table table-hover table-condensed">
+          <thead>
+              <tr>
+                  <th>Title</th>
+                  <th>Série</th>
+                  <th>Genre</th>
+                  <th>price</th>
+              </tr>
+          </thead>
+          {% for article in cart %}
+          <tr>
+              <td><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></td>
+              <td>{{ article.serie }}</td>
+              <td>{{ article.genre }}</td>
+              <td>{{ article.price }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+  </div>
 </div>
 {% endblock %}
