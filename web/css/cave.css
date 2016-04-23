@@ -2,7 +2,6 @@
     border-top: 1px solid #ccc;
     padding-top: 10px;
     text-align: center;
-    color: white;
 }
 
 body {
@@ -31,6 +30,7 @@ body {
     padding-bottom: 10px;
 }
 
+<<<<<<< HEAD
 body {
     margin: 0;
     padding: 0;
@@ -40,3 +40,5 @@ body {
     background-size: cover;
     /* version standardisée */
 }
+=======
+>>>>>>> refs/remotes/origin/master

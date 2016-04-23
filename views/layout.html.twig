@@ -9,6 +9,8 @@
     <link href="{{ app.request.basepath }}/css/cave.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/DeadPoolCave/web/pictures/favicon2.png" />
     <title>DeadPoolCave - {% block title %}{% endblock %}</title>
+    <link href="../web/css/carousel.css" rel="stylesheet">
+    <link href="../web/css/cave.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,18 +24,19 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="{{ path('home') }}">
-                      <span class="glyphicon glyphicon-home"></span>
-                    DeadPoolCave</b></a>
+                        <span class="glyphicon glyphicon-home"></span> DeadPoolCave
+                        </b>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                  {% if genres is defined and editors is defined %}
+                    {% if genres is defined and editors is defined %}
                     <ul class="nav navbar-nav navbar-left">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-th-list"></span> Genre <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 {% for genre in genres %}
-                                    <li><a href="{{path('genre',{ 'genre': genre.name })}}">{{ genre.name }}</a></li>
+                                <li><a href="{{path('genre',{ 'genre': genre.name })}}">{{ genre.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -42,7 +45,7 @@
                                 <span class="glyphicon glyphicon-th-list"></span> Editeur <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 {% for editor in editors %}
-                                    <li><a href="{{path('editor',{ 'editor': editor.name })}}">{{ editor.name }}</a></li>
+                                <li><a href="{{path('editor',{ 'editor': editor.name })}}">{{ editor.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>
@@ -50,23 +53,24 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-th-list"></span> Nom <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                    <li><a href="{{path('name',{ 'begin': '1' , 'end': '9' })}}"> 1-9 </a></li>
-                                    <li><a href="{{path('name',{ 'begin': 'A' , 'end': 'E' })}}"> A-E </a></li>
-                                    <li><a href="{{path('name',{ 'begin': 'F' , 'end': 'J' })}}"> F-J </a></li>
-                                    <li><a href="{{path('name',{ 'begin': 'K' , 'end': 'O' })}}"> K-O </a></li>
-                                    <li><a href="{{path('name',{ 'begin': 'P' , 'end': 'T' })}}"> P-T </a></li>
-                                    <li><a href="{{path('name',{ 'begin': 'U' , 'end': 'Z' })}}"> U-Z </a></li>
+                                <li><a href="{{path('name',{ 'begin': '1' , 'end': '9' })}}"> 1-9 </a></li>
+                                <li><a href="{{path('name',{ 'begin': 'A' , 'end': 'E' })}}"> A-E </a></li>
+                                <li><a href="{{path('name',{ 'begin': 'F' , 'end': 'J' })}}"> F-J </a></li>
+                                <li><a href="{{path('name',{ 'begin': 'K' , 'end': 'O' })}}"> K-O </a></li>
+                                <li><a href="{{path('name',{ 'begin': 'P' , 'end': 'T' })}}"> P-T </a></li>
+                                <li><a href="{{path('name',{ 'begin': 'U' , 'end': 'Z' })}}"> U-Z </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-th-list"></span> Auteur <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                    <li><a href=""> A-E </a></li>
-                                    <li><a href=""> F-J </a></li>
-                                    <li><a href=""> K-O </a></li>
-                                    <li><a href=""> P-T </a></li>
-                                    <li><a href=""> U-Z </a></li>
+                              <li><a href="{{path('author',{ 'begin': '1' , 'end': '9' })}}"> 1-9 </a></li>
+                              <li><a href="{{path('author',{ 'begin': 'A' , 'end': 'E' })}}"> A-E </a></li>
+                              <li><a href="{{path('author',{ 'begin': 'F' , 'end': 'J' })}}"> F-J </a></li>
+                              <li><a href="{{path('author',{ 'begin': 'K' , 'end': 'O' })}}"> K-O </a></li>
+                              <li><a href="{{path('author',{ 'begin': 'P' , 'end': 'T' })}}"> P-T </a></li>
+                              <li><a href="{{path('author',{ 'begin': 'U' , 'end': 'Z' })}}"> U-Z </a></li>
                             </ul>
                         </li>
                     </ul>

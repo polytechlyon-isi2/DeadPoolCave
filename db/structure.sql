@@ -4,6 +4,7 @@ drop table if exists t_article;
 drop table if exists t_comment;
 drop table if exists t_author;
 drop table if exists t_user;
+drop table if exists t_article_author;
 
 
 create table t_genre (
@@ -30,34 +31,22 @@ create table t_article (
     constraint fk_art_editor foreign key(art_editor) references t_editor(editor_name)
 );
 create table t_user (
-
     usr_id integer not null primary key auto_increment,
-
     usr_name varchar(50) not null,
-
     usr_password varchar(88) not null,
-
     usr_salt varchar(23) not null,
-
     usr_role varchar(50) not null
-
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 
 create table t_comment (
-
     com_id integer not null primary key auto_increment,
-
     com_content varchar(500) not null,
-
     art_id integer not null,
-
     usr_id integer not null,
 
     constraint fk_com_art foreign key(art_id) references t_article(art_id),
-
     constraint fk_com_usr foreign key(usr_id) references t_user(usr_id)
-
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 
@@ -65,6 +54,16 @@ create table t_author (
     aut_id integer not null primary key auto_increment,
     aut_name varchar(50) not null,
     aut_firstname varchar(50)
+) engine=innodb character set utf8 collate utf8_unicode_ci;
+
+create table t_article_author (
+  art_id integer,
+  aut_id integer,
+
+  constraint fk_aut_art foreign key(art_id) references t_article(art_id),
+  constraint fk_art_aut foreign key(aut_id) references t_author(aut_id),
+
+  primary key (art_id,aut_id)
 ) engine=innodb character set utf8 collate utf8_unicode_ci;
 
 create table t_commande (

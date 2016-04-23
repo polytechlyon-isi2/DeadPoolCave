@@ -24,7 +24,7 @@ class HomeController {
         $articles = $app['dao.article']->findAll();
         $genres = $app['dao.genre']->findAll();
         $editors = $app['dao.editor']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('home.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
     /**
@@ -49,6 +49,19 @@ class HomeController {
         $genres = $app['dao.genre']->findAll();
         $editors = $app['dao.editor']->findAll();
         $articles = $app['dao.article']->findByName($begin,$end);
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+    }
+
+    /**
+     *
+     * @param $begin String
+     * @param $end String
+     * @param Application $app Silex application
+     */
+    public function authorAction($begin,$end, Application $app) {
+        $genres = $app['dao.genre']->findAll();
+        $editors = $app['dao.editor']->findAll();
+        $articles = $app['dao.article']->findByAuthor($begin,$end);
         return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
     }
 
@@ -141,7 +154,7 @@ class HomeController {
             $user->setPassword($password);
             $user->setRole('User');
             $app['dao.user']->save($user);
-            
+
 
             $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
         }
@@ -177,25 +190,27 @@ class HomeController {
         }
 
         $editors = $app['dao.editor']->findAll();
-        
 
-            
+
+
         return $app['twig']->render('profil_form.html.twig', array(
             'genres' => $genres,
             'editors' => $editors,
             'title' => 'Edit Profil',
             'profilForm' => $profilForm->createView()));
     }
-    
+
     public function cart ($id, Request $request, Application $app){
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
         $cart = $app['dao.article']->findByCart($id);
-        
+
         return $app['twig']->render('commande.html.twig', array(
             'genres' => $genres,
             'cart' => $cart,
             'title' => 'Cart',
             ));
     }
+
+
 }

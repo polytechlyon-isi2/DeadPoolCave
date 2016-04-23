@@ -55,7 +55,7 @@ class ArticleDAO extends DAO
         else
             throw new \Exception("No article matching id " . $id);
     }
-    
+
     public function findByCart($usrId){
         $sql = "select * from t_article inner join t_commande on t_commande.commande_artId = t_article.art_id where t_commande.commande_userId = ?";
             $result = $this->getDb()->fetchAll($sql, array($usrId));
@@ -66,7 +66,7 @@ class ArticleDAO extends DAO
         }
         return $articles;
     }
-    
+
     public function addToCart($artId, $usrId){
         $sql = "insert into t_commande set commande_artId = '$artId' , commande_userId='$usrId' ";
         $this->getDb()->sql;
@@ -91,11 +91,11 @@ class ArticleDAO extends DAO
     }
 
     /**
-     * Returns an list of article matching the supplied genre.
+     * Returns an list of article matching the supplied name.
      *
-     * @param String $genre
+     * @param String $begin
+     * @param String $end
      *
-     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching name is found
      */
     public function findByName($begin,$end) {
         $sql = "select * from t_article where art_ref > ? AND art_ref < ?";
@@ -109,11 +109,30 @@ class ArticleDAO extends DAO
     }
 
     /**
-     * Returns an list of article matching the supplied genre.
+     * Returns an list of article matching the supplied author.
      *
-     * @param String $genre
+     * @param String $begin
+     * @param String $end
      *
-     * @return \DeadPoolCave\Domain\Genre|throws an exception if no matching name is found
+     */
+    public function findByAuthor($begin,$end) {
+        $sql = "select * from t_article where art_id IN 
+        (select art_id from t_article_author where aut_id IN
+        (select aut_id from t_author where aut_name > ? AND aut_name < ?))";
+        $result = $this->getDb()->fetchAll($sql, array($begin,$end));
+        $articles = array();
+        foreach ($result as $row) {
+            $articleId = $row['art_id'];
+            $articles[$articleId] = $this->buildDomainObject($row);
+        }
+        return $articles;
+    }
+
+    /**
+     * Returns an list of article matching the supplied editor.
+     *
+     * @param String $editor
+     *
      */
     public function findByEditor($editor) {
         $sql = "select * from t_article where art_editor = ?";
