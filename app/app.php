@@ -67,7 +67,10 @@ $app['dao.article'] = $app->share(function ($app) {
     return new DeadPoolCave\DAO\ArticleDAO($app['db']);
 });
 $app['dao.user'] = $app->share(function ($app) {
-    return new DeadpoolCave\DAO\UserDAO($app['db']);
+    return new DeadPoolCave\DAO\UserDAO($app['db']);
+});
+$app['dao.author'] = $app->share(function ($app) {
+    return new DeadPoolCave\DAO\AuthorDAO($app['db']);
 });
 $app['dao.comment'] = $app->share(function ($app) {
     $commentDAO = new DeadPoolCave\DAO\CommentDAO($app['db']);

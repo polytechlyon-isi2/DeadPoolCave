@@ -8,6 +8,12 @@
             <div class="col-md-6">
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.content }}</p><br/>
+                <p> auteur(s) :
+                  {% for author in authors %}
+                  {{author.name}} {{author.firstName}}<br/>
+                  {% else %} auteur inconnu
+                  {% endfor %}
+                </p>
                 <p>prix : {{ article.price }} €</p><br/>
                 {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                 <a class="btn btn-lg btn-primary" href="{{ path('cartAdd', { 'artId': article.id , 'usrId': app.user.id }) }} "><span class="glyphicon glyphicon-shopping-cart"> Ajouter au panier</span>

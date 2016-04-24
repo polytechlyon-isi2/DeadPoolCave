@@ -1,9 +1,8 @@
 {% extends 'layout.html.twig' %} {% block title %}Profil{% endblock %} {% block content %}
 
 <h2 class="text-center">{{ block('title') }}</h2>
-<h2>username :  {{ app.user.username }}</h2>
-<h2>adresse :   non connue</h2>
+<h2>nom d'utilisateur :  {{ app.user.username }}</h2>
 
 
-<h2><a href="{{ path('profilEdit', { 'id': user.id }) }}" class="btn btn-info btn-lg" title="Edit your profil">Edit your profil  <span class="glyphicon glyphicon-edit"></span></a></h2>
-<h2><a href="{{ path('cart', { 'id': user.id}) }}" class="btn btn-info btn-lg" title="Cart">Voir ton panier</a></h2> {% endblock %}
+<h2><a href="{{ path('profilEdit', { 'id': user.id }) }}" class="btn btn-info btn-lg" title="Edit your profil"> Modification de votre profil  <span class="glyphicon glyphicon-edit"></span></a></h2>
+<h2><a href="{{ path('cart', { 'id': user.id}) }}" class="btn btn-info btn-lg" title="Cart">Panier</a></h2> {% endblock %}

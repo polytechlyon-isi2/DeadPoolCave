@@ -2,7 +2,7 @@
 
 namespace DeadPoolCave\Domain;
 
-class Editor
+class Author
 {
 
     /**

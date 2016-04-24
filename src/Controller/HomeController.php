@@ -104,6 +104,7 @@ class HomeController {
         $article = $app['dao.article']->find($id);
         $genres = $app['dao.genre']->findAll();
         $editors = $app['dao.editor']->findAll();
+        $authors = $app['dao.author']->findByArticle($id);
         $commentFormView = null;
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             // A user is fully authenticated : he can add comments
@@ -122,6 +123,7 @@ class HomeController {
         $comments = $app['dao.comment']->findAllByArticle($id);
         return $app['twig']->render('article.html.twig', array(
             'article' => $article,
+            'authors' => $authors,
             'genres' => $genres,
             'editors' => $editors,
             'comments' => $comments,
@@ -206,8 +208,6 @@ class HomeController {
 
         $editors = $app['dao.editor']->findAll();
 
-
-
         return $app['twig']->render('profil_form.html.twig', array(
             'genres' => $genres,
             'editors' => $editors,
@@ -219,9 +219,10 @@ class HomeController {
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
         $cart = $app['dao.article']->findByCart($id);
-
+        $editors = $app['dao.editor']->findAll();
         return $app['twig']->render('commande.html.twig', array(
             'genres' => $genres,
+            'editors' => $editors,
             'cart' => $cart,
             'title' => 'Cart',
             ));

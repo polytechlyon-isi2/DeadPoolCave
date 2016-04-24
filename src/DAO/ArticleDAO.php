@@ -124,7 +124,7 @@ class ArticleDAO extends DAO
      *
      */
     public function findByName($begin,$end) {
-        $sql = "select * from t_article where art_ref > ? AND art_ref < ?";
+        $sql = "select * from t_article where art_title > ? AND art_title < ?";
         $result = $this->getDb()->fetchAll($sql, array($begin,$end));
         $articles = array();
         foreach ($result as $row) {

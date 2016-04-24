@@ -8,7 +8,7 @@
                   <th>Title</th>
                   <th>Série</th>
                   <th>Genre</th>
-                  <th>price</th>
+                  <th>price (€)</th>
               </tr>
           </thead>
           {% for article in cart %}
@@ -18,6 +18,8 @@
               <td>{{ article.genre }}</td>
               <td>{{ article.price }}</td>
           </tr>
+          {% else %}
+            <h2> Votre panier est vide </h2>
           {% endfor %}
       </table>
   </div>
