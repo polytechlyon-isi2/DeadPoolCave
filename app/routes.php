@@ -15,6 +15,9 @@ $app->get('/editor/{editor}', "DeadPoolCave\Controller\HomeController::editorAct
 // author
 $app->get('/author/{author}', "DeadPoolCave\Controller\HomeController::authorAction")->bind('author');
 
+// order
+$app->get('/order/{userId}', "DeadPoolCave\Controller\HomeController::deleteCartAction")->bind('order');
+
 // Detailed info about an article
 $app->match('/article/{id}', "DeadPoolCave\Controller\HomeController::articleAction")->bind('article');
 

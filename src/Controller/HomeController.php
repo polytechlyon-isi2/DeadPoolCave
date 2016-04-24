@@ -184,7 +184,7 @@ class HomeController {
             $app['dao.user']->save($user);
 
 
-            $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+            $app['session']->getFlashBag()->add('success', 'Le profil à été correctement créé.');
         }
         return $app['twig']->render('user_signup.html.twig', array(
           'genres' => $genres,
@@ -215,7 +215,7 @@ class HomeController {
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
             $user->setPassword($password);
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was succesfully updated.');
+            $app['session']->getFlashBag()->add('success', 'Le profil à été correctement modifié.');
         }
 
         $editors = $app['dao.editor']->findAll();
@@ -241,6 +241,19 @@ class HomeController {
             'cart' => $cart,
             'title' => 'Cart',
             ));
+    }
+
+    /**
+     * Delete article in the cart.
+     *
+     * @param integer $id Comment id
+     * @param Application $app Silex application
+     */
+    public function deleteCartAction($userId, Application $app) {
+        $app['dao.user']->deleteCart($userId);
+        $app['session']->getFlashBag()->add('success', 'Votre commande à été enregistré');
+        // Redirect to home page
+        return $app->redirect($app['url_generator']->generate('home'));
     }
 
 

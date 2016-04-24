@@ -1,4 +1,9 @@
 {% extends 'layout.html.twig' %} {% block title %}Panier{% endblock %} {% block content %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    {{ flashMessage }}
+</div>
+{% endfor %}
 <h2 class="text-center">Panier</h2>
 <div class="container">
   <div class="table-responsive">
@@ -24,6 +29,32 @@
             <h2> Votre panier est vide </h2>
           {% endif %}
       </table>
+      {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
+      <div style="text-align:center">
+        <button type="button" class="btn btn-lg btn-primary" title="Delete" data-toggle="modal" data-target="#articleDialog"><span class="glyphicon glyphicon-shopping-cart"></span>
+        Commander
+        </button>
+
+        <div class="modal fade" id="articleDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Confirmation nécessaire</h4>
+                    </div>
+                    <div class="modal-body">
+                        Voulez-vous vraiment commander ces articles ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="{{ path('order', { 'userId': app.user.id  }) }}" class="btn btn-danger">Confirmer</a>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        {% endif %}
+      </div>
+    </div>
   </div>
-</div>
+</br>
 {% endblock %}

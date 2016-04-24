@@ -144,7 +144,7 @@ class UserDAO extends DAO implements UserProviderInterface
         return $user;
 
     }
-    
+
     /**
      * Returns a list of all users, sorted by role and name.
      *
@@ -161,7 +161,16 @@ class UserDAO extends DAO implements UserProviderInterface
         }
         return $entities;
     }
-    
+
+    /**
+     * Delete article in the cart
+     *
+     */
+    public function deleteCart($usrId) {
+        $sql = "delete from t_commande where commande_userId = ?";
+        $result = $this->getDb()->executeQuery($sql, array($usrId));
+    }
+
     /**
      * Saves a user into the database.
      *

@@ -1,4 +1,9 @@
 {% extends "layout.html.twig" %} {% block title %}Home{% endblock %} {% block content %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+<div class="alert alert-success">
+    {{ flashMessage }}
+</div>
+{% endfor %}
 <div class="row">
     <div class="col-md-6">
         <img class="img-responsive" style="max-height:15em" src="../web/pictures/deadpoolhome.jpg">
