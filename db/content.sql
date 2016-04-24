@@ -42,7 +42,7 @@ insert into t_article values
 (11, 'Daredevil n°1 : L\'homme sans peur','Après la mort présumée de sa mère survenue alors qu\'il avait six ans, Matt est élevé par son père. Celui-ci avait promis à sa femme mourante de prendre soin de leur fils. Se prenant pour un raté, il oblige Matt à ne pas suivre son exemple et le pousse à faire des études pour devenir avocat ou médecin. Souffre-douleur des enfants de la ville, Matt est considéré comme un loser par les caïds de la ville.','Marvel','Super-Hero','Daredevil',10,'http://comics-vf.the-covers.com/bethy/m/daredevil-l-homme-sans-peur.jpg');
 
 insert into t_article values
-(12, 'Spiderman n°1 : Tourments','Peter Parker est le fils unique de Richard et Mary Parker. Ses parents sont tués en travaillant sous couverture pour le gouvernement2. Peter Parker, orphelin à l\'âge de six ans, est alors confié à son oncle et à sa tante, Benjamin et May Parker.','Marvel','Super-Hero','Spiderman',17,'http://comics-vf.the-covers.com/bethy/m/spiderman-1-tourments.jpg');
+(12, 'Spiderman n°1 : Tourments','Peter Parker est le fils unique de Richard et Mary Parker. Ses parents sont tués en travaillant sous couverture pour le gouvernement. Peter Parker, orphelin à l\'âge de six ans, est alors confié à son oncle et à sa tante, Benjamin et May Parker.','Marvel','Super-Hero','Spiderman',17,'http://comics-vf.the-covers.com/bethy/m/spiderman-1-tourments.jpg');
 
 /*author*/
 insert into t_author values (1,'Jeff','King');
