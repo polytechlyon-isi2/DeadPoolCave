@@ -13,7 +13,7 @@ class AuthorDAO extends DAO
      * @return array A list of all editors.
      */
     public function findAll() {
-        $sql = "select * from t_author";
+        $sql = "select * from t_author order by aut_name asc";
         $result = $this->getDb()->fetchAll($sql);
         // Convert query result to an array of domain objects
         $authors = array();

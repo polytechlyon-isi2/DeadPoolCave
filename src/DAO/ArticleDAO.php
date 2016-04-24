@@ -124,7 +124,7 @@ class ArticleDAO extends DAO
      *
      */
     public function findByName($begin,$end) {
-        $sql = "select * from t_article where art_title > ? AND art_title < ?";
+        $sql = "select * from t_article where art_title > ? AND art_title < ? order by art_title asc";
         $result = $this->getDb()->fetchAll($sql, array($begin,$end));
         $articles = array();
         foreach ($result as $row) {
@@ -137,15 +137,13 @@ class ArticleDAO extends DAO
     /**
      * Returns an list of article matching the supplied author.
      *
-     * @param String $begin
-     * @param String $end
+     * @param String $author
      *
      */
-    public function findByAuthor($begin,$end) {
+    public function findByAuthor($author) {
         $sql = "select * from t_article where art_id IN
-        (select art_id from t_article_author where aut_id IN
-        (select aut_id from t_author where aut_name > ? AND aut_name < ?))";
-        $result = $this->getDb()->fetchAll($sql, array($begin,$end));
+        (select art_id from t_article_author where aut_id =?)";
+        $result = $this->getDb()->fetchAll($sql, array($author));
         $articles = array();
         foreach ($result as $row) {
             $articleId = $row['art_id'];

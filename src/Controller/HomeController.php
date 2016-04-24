@@ -23,8 +23,9 @@ class HomeController {
     public function indexAction(Application $app) {
         $articles = $app['dao.article']->findAll();
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
-        return $app['twig']->render('home.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('home.html.twig', array('articles' => $articles, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
     /**
@@ -35,8 +36,9 @@ class HomeController {
     public function genreAction($genre, Application $app) {
         $articles = $app['dao.article']->findByGenre($genre);
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
     /**
@@ -47,9 +49,10 @@ class HomeController {
      */
     public function nameAction($begin,$end, Application $app) {
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
         $articles = $app['dao.article']->findByName($begin,$end);
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
     /**
@@ -58,11 +61,12 @@ class HomeController {
      * @param $end String
      * @param Application $app Silex application
      */
-    public function authorAction($begin,$end, Application $app) {
+    public function authorAction($author, Application $app) {
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
-        $articles = $app['dao.article']->findByAuthor($begin,$end);
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        $articles = $app['dao.article']->findByAuthor($author);
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
 
@@ -74,10 +78,11 @@ class HomeController {
      */
     public function addArticleToCart($usrId, $artId, Application $app){
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
         $article = $app['dao.article']->find($artId);
         $app['dao.article']->addToCart($artId,$usrId);
-        return $app['twig']->render('addToCart.html.twig', array('article' => $article, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('addToCart.html.twig', array('article' => $article, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
     /**
@@ -88,9 +93,10 @@ class HomeController {
      */
     public function editorAction($editor, Application $app) {
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
         $articles = $app['dao.article']->findByEditor($editor);
-        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'editors' => $editors));
+        return $app['twig']->render('index.html.twig', array('articles' => $articles, 'genres' => $genres, 'authors' => $authors, 'editors' => $editors));
     }
 
     /**
@@ -103,8 +109,9 @@ class HomeController {
     public function articleAction($id, Request $request, Application $app) {
         $article = $app['dao.article']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $editors = $app['dao.editor']->findAll();
-        $authors = $app['dao.author']->findByArticle($id);
+        $authorsArticle = $app['dao.author']->findByArticle($id);
         $commentFormView = null;
         if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
             // A user is fully authenticated : he can add comments
@@ -123,8 +130,9 @@ class HomeController {
         $comments = $app['dao.comment']->findAllByArticle($id);
         return $app['twig']->render('article.html.twig', array(
             'article' => $article,
-            'authors' => $authors,
+            'authorsArticle' => $authorsArticle,
             'genres' => $genres,
+            'authors' => $authors,
             'editors' => $editors,
             'comments' => $comments,
             'commentForm' => $commentFormView));
@@ -138,10 +146,12 @@ class HomeController {
      */
     public function loginAction(Request $request, Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $authors = $app['dao.author']->findAll();
       $editors = $app['dao.editor']->findAll();
         return $app['twig']->render('login.html.twig', array(
           'genres' => $genres,
           'editors' => $editors,
+          'authors' => $authors,
             'error'         => $app['security.last_error']($request),
             'last_username' => $app['session']->get('_security.last_username'),
             ));
@@ -155,6 +165,7 @@ class HomeController {
      */
     public function userSignUpAction(Request $request, Application $app) {
       $genres = $app['dao.genre']->findAll();
+      $authors = $app['dao.author']->findAll();
       $editors = $app['dao.editor']->findAll();
         $user = new User();
         $userForm = $app['form.factory']->create(new SignUpType(), $user);
@@ -177,6 +188,7 @@ class HomeController {
         }
         return $app['twig']->render('user_signup.html.twig', array(
           'genres' => $genres,
+          'authors' => $authors,
            'editors' => $editors,
             'title' => 'New user',
             'userForm' => $userForm->createView()));
@@ -192,7 +204,7 @@ class HomeController {
     public function profilEdit($id, Request $request, Application $app) {
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
-
+        $authors = $app['dao.author']->findAll();
         $profilForm = $app['form.factory']->create(new ProfilType(), $user);
         $profilForm->handleRequest($request);
         if ($profilForm->isSubmitted() && $profilForm->isValid()) {
@@ -210,6 +222,7 @@ class HomeController {
 
         return $app['twig']->render('profil_form.html.twig', array(
             'genres' => $genres,
+            'authors' => $authors,
             'editors' => $editors,
             'title' => 'Edit Profil',
             'profilForm' => $profilForm->createView()));
@@ -218,10 +231,12 @@ class HomeController {
     public function cart ($id, Request $request, Application $app){
         $user = $app['dao.user']->find($id);
         $genres = $app['dao.genre']->findAll();
+        $authors = $app['dao.author']->findAll();
         $cart = $app['dao.article']->findByCart($id);
         $editors = $app['dao.editor']->findAll();
         return $app['twig']->render('commande.html.twig', array(
             'genres' => $genres,
+            'authors' => $authors,
             'editors' => $editors,
             'cart' => $cart,
             'title' => 'Cart',
