@@ -24,15 +24,21 @@ insert into t_article values
 (5, 'DEADPOOL (2012) #5','Deadpool vs. Reagan…IN SPACE!DO YOU NEED MORE THAN THAT?!?Ok, then…MONKEYS!','Marvel','Super-Hero','Deadpool',10,'http://x.annihil.us/u/prod/marvel/i/mg/a/03/535165ac58339/detail.jpg');
 
 /*author*/
-INSERT INTO `t_author` (`aut_id`, `aut_name`, `aut_firstname`) VALUES (NULL, 'Willow Wilson', 'Gwendolyn');
-INSERT INTO `t_author` (`aut_id`, `aut_name`, `aut_firstname`) VALUES (NULL, 'Duggan', 'Gerry');
-INSERT INTO `t_author` (`aut_id`, `aut_name`, `aut_firstname`) VALUES (NULL, 'Shalvey', 'Declan');
-INSERT INTO `t_author` (`aut_id`, `aut_name`, `aut_firstname`) VALUES (NULL, 'Dennis', 'Hopeless');
+insert into t_author values (1,'Jeff','King');
+insert into t_author values (2,'Dan', 'Abnett');
+insert into t_author values (3,'Brian', 'Posehn' );
+insert into t_author values (4,'Gerry', 'Duggan');
+insert into t_author values (5,'Dennis', 'Hopeless');
+insert into t_author values (6,'G. Willow', 'Wilson');
 
-INSERT INTO `t_article_author` (`art_id`, `aut_id`) VALUES ('3', '1');
-INSERT INTO `t_article_author` (`art_id`, `aut_id`) VALUES ('1', '2');
-INSERT INTO `t_article_author` (`art_id`, `aut_id`) VALUES ('1', '3');
-INSERT INTO `t_article_author` (`art_id`, `aut_id`) VALUES ('2', '4');
+insert into t_article_author values (4,2);
+insert into t_article_author values (4,1);
+insert into t_article_author values (5,3);
+insert into t_article_author values (5,4);
+insert into t_article_author values (1,3);
+insert into t_article_author values (1,4);
+insert into t_article_author values (2,5);
+insert into t_article_author values (3,6);
 
 /* raw password is 'john' */
 insert into t_user values
@@ -47,19 +53,3 @@ insert into t_user values
 
 insert into t_comment values
 (1, 'Great! Keep up the good work.', 1, 1);
-
-insert into t_author values (1,'Jeff','King');
-insert into t_author values (2,'Dan', 'Abnett');
-insert into t_author values (3,'Brian', 'Posehn' );
-insert into t_author values (4,'Gerry', 'Duggan');   
-insert into t_author values (5,'Dennis', 'Hopeless');
-insert into t_author values (6,'G. Willow', 'Wilson');
-
-insert into t_article_author values (4,2);
-insert into t_article_author values (4,1);
-insert into t_article_author values (5,3);
-insert into t_article_author values (5,4);
-insert into t_article_author values (1,3);
-insert into t_article_author values (1,4);
-insert into t_article_author values (2,5);
-insert into t_article_author values (3,6);
