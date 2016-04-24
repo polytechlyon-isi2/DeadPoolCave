@@ -2,6 +2,7 @@
 <h2 class="text-center">Panier</h2>
 <div class="container">
   <div class="table-responsive">
+      {% if cart %}
       <table class="table table-hover table-condensed">
           <thead>
               <tr>
@@ -18,9 +19,10 @@
               <td>{{ article.genre }}</td>
               <td>{{ article.price }}</td>
           </tr>
+          {% endfor %}
           {% else %}
             <h2> Votre panier est vide </h2>
-          {% endfor %}
+          {% endif %}
       </table>
   </div>
 </div>
