@@ -16,7 +16,6 @@
 <body>
     <div class='navbar-wrapper'>
         <div class="container">
-
             <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -31,7 +30,7 @@
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                        {% if genres is defined and editors is defined %}
+                        {% if genres is defined and editors is defined and authors is defined%}
                         <ul class="nav navbar-nav navbar-left">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -67,12 +66,9 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="glyphicon glyphicon-th-list"></span> Auteur <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{path('author',{ 'begin': '1' , 'end': '9' })}}"> 1-9 </a></li>
-                                    <li><a href="{{path('author',{ 'begin': 'A' , 'end': 'E' })}}"> A-E </a></li>
-                                    <li><a href="{{path('author',{ 'begin': 'F' , 'end': 'J' })}}"> F-J </a></li>
-                                    <li><a href="{{path('author',{ 'begin': 'K' , 'end': 'O' })}}"> K-O </a></li>
-                                    <li><a href="{{path('author',{ 'begin': 'P' , 'end': 'T' })}}"> P-T </a></li>
-                                    <li><a href="{{path('author',{ 'begin': 'U' , 'end': 'Z' })}}"> U-Z </a></li>
+                                  {% for author in authors %}
+                                  <li><a href="{{path('author',{ 'author': author.id })}}">{{ author.name }} {{ author.firstName }}</a></li>
+                                  {% endfor %}
                                 </ul>
                             </li>
                         </ul>

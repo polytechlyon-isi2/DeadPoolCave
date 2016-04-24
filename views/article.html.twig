@@ -9,7 +9,7 @@
                 <h2>{{ article.title }}</h2>
                 <p>{{ article.content }}</p><br/>
                 <p> auteur(s) :
-                  {% for author in authors %}
+                  {% for author in authorsArticle %}
                   {{author.name}} {{author.firstName}}<br/>
                   {% else %} auteur inconnu
                   {% endfor %}

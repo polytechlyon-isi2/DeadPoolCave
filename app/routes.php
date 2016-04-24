@@ -12,8 +12,8 @@ $app->get('/name/{begin}/{end}', "DeadPoolCave\Controller\HomeController::nameAc
 // editor
 $app->get('/editor/{editor}', "DeadPoolCave\Controller\HomeController::editorAction")->bind('editor');
 
-// editor
-$app->get('/author/{begin}/{end}', "DeadPoolCave\Controller\HomeController::authorAction")->bind('author');
+// author
+$app->get('/author/{author}', "DeadPoolCave\Controller\HomeController::authorAction")->bind('author');
 
 // Detailed info about an article
 $app->match('/article/{id}', "DeadPoolCave\Controller\HomeController::articleAction")->bind('article');
