@@ -1,18 +1,23 @@
-{% extends "layout.html.twig" %} {% block title %}Home{% endblock %} {% block content %}
-{% for flashMessage in app.session.flashbag.get('success') %}
+{% extends "layout.html.twig" %} {% block title %}Home{% endblock %} {% block content %} {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">
     {{ flashMessage }}
-</div>
-{% endfor %}
-<div class="row">
-    <div class="col-md-6">
-        <img class="img-responsive" style="max-height:15em" src="../web/pictures/deadpoolhome.jpg">
-    </div>
-    <div class="col-md-6"><img class="img-responsive" style="max-height:15em" src="../web/pictures/deadpoolhome2.jpg"></div>
-</div>
-<hr />
 
-</div></div>
+</div>
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'> {% endfor %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img-responsive" style="max-height:15em" src="../web/pictures/deadpoolhome.jpg">
+        </div>
+        <div class="col-md-6">
+            <h3>Bienvenue dans la DeadPoolCave !! C'est un peu comme la BatCave sauf que c'est la mienne et que c'est plein de comics ! et que des bons comics en plus.</h3>
+            <h3>Et si tu ne me crois pas tu n'as qu'à aller voir par toi même ! </h3></div>
+        <div class="col-md-3"><img class="img-responsive" style="max-height:15em" src="../web/pictures/deadpoolhome2.jpg"></div>
+    </div>
+    <hr />
+
+</div>
+</div>
 <!-- Carousel ================================================== -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -50,32 +55,33 @@
 <!-- /.carousel -->
 
 <div class="container">
-  <div id="content">
+    <div id="content">
 
 
-    <hr />
+        <hr />
 
-    <div class="row">
-        <div class="col-md-3"><img class="img-responsive" style="max-height:10em" src="http://gazette-du-geek.fr/wp-content/uploads/2016/02/Deadpool-le-film-qui-te-fait-du-bien-.jpg"></div>
-        <div class="col-md-9">
-            <h2>Ils sont beau, ils sont chaud, ils sont tout neuf !!</h2>
-            <h2>Jette un coup d'oeil aux derniers comics arrivé sur le site !</h2>
+        <div class="row">
+            <div class="col-md-3"><img class="img-responsive" style="max-height:10em" src="http://gazette-du-geek.fr/wp-content/uploads/2016/02/Deadpool-le-film-qui-te-fait-du-bien-.jpg"></div>
+            <div class="col-md-9">
+                <h3>Ils sont beau, ils sont chaud, ils sont tout neuf !!</h3>
+                <h3>Jette un coup d'oeil aux derniers comics arrivé sur le site !</h3>
+            </div>
+
         </div>
+        <hr />
 
+        <section class="row">
+            {% for article in articles %}
+            <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">
+                <article class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="article thumbnail">
+                        <img class="img-rounded" style="max-height:15em" src="{{article.img}}" />
+                        <h2>{{ article.title }}</h2>
+                    </div>
+                </article>
+            </a>
+            {% endfor %}
+        </section>
     </div>
-    <hr />
-
-    <section class="row">
-        {% for article in articles %}
-        <a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">
-            <article class="col-xs-12 col-sm-6 col-md-4">
-                <div class="article thumbnail">
-                    <img class="img-rounded" style="max-height:15em" src="{{article.img}}" />
-                    <h2>{{ article.title }}</h2>
-                </div>
-            </article>
-        </a>
-        {% endfor %}
-    </section>
 </div>
 {% endblock %}
